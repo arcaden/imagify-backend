@@ -1,0 +1,1661 @@
+  [1m[35m (60.4ms)[0m  [1m[35mCREATE DATABASE "shopify_images_development" ENCODING = 'unicode'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE "shopify_images_test" ENCODING = 'unicode'[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to EnableUuid (20210501225905)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210501225905"]]
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseCreateUsers (20210501230106)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "jwt_denylist" ("id" bigserial primary key, "jti" character varying NOT NULL, "exp" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_jwt_denylist_on_jti" ON "jwt_denylist" ("jti")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210501230106"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-01 23:21:35.954899"], ["updated_at", "2021-05-01 23:21:35.954899"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (11.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "shopify_images_development"[0m
+  [1m[35m (10.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "shopify_images_test"[0m
+  [1m[35m (61.3ms)[0m  [1m[35mCREATE DATABASE "shopify_images_development" ENCODING = 'unicode'[0m
+  [1m[35m (60.7ms)[0m  [1m[35mCREATE DATABASE "shopify_images_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (2.8ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "jwt_denylist" CASCADE[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "jwt_denylist" ("id" bigserial primary key, "jti" character varying NOT NULL, "exp" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_jwt_denylist_on_jti" ON "jwt_denylist" ("jti")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210501230106)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210501225905);
+
+[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-01 23:25:10.667981"], ["updated_at", "2021-05-01 23:25:10.667981"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "bdf93e7d27c740b88dc58b0d2bda3650fb986d99"], ["created_at", "2021-05-01 23:25:10.672446"], ["updated_at", "2021-05-01 23:25:10.672446"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (2.7ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "jwt_denylist" CASCADE[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "jwt_denylist" ("id" bigserial primary key, "jti" character varying NOT NULL, "exp" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_jwt_denylist_on_jti" ON "jwt_denylist" ("jti")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210501230106)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210501225905);
+
+[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-01 23:25:10.712340"], ["updated_at", "2021-05-01 23:25:10.712340"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-05-01 23:25:10.715527"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "bdf93e7d27c740b88dc58b0d2bda3650fb986d99"], ["created_at", "2021-05-01 23:25:10.718416"], ["updated_at", "2021-05-01 23:25:10.718416"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE "shopify_images_development" ENCODING = 'unicode'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE DATABASE "shopify_images_test" ENCODING = 'unicode'[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "jwt_denylist" CASCADE[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "jwt_denylist" ("id" bigserial primary key, "jti" character varying NOT NULL, "exp" timestamp NOT NULL)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE INDEX "index_jwt_denylist_on_jti" ON "jwt_denylist" ("jti")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "jwt_denylist" CASCADE[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "jwt_denylist" ("id" bigserial primary key, "jti" character varying NOT NULL, "exp" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_jwt_denylist_on_jti" ON "jwt_denylist" ("jti")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "development"], ["updated_at", "2021-05-01 23:25:21.580233"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2021-05-01 23:25:21.583433"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (4575.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "shopify_images_development"[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE DATABASE "shopify_images_development" ENCODING = 'unicode'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE "shopify_images_test" ENCODING = 'unicode'[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to EnableUuid (20210501225905)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "pgcrypto"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210501225905"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseCreateUsers (20210501230106)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "name" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "jwt_denylist" ("id" bigserial primary key, "jti" character varying NOT NULL, "exp" timestamp NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_jwt_denylist_on_jti" ON "jwt_denylist" ("jti")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210501230106"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-01 23:28:13.373539"], ["updated_at", "2021-05-01 23:28:13.373539"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "name", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "test@gmail.com"], ["encrypted_password", "$2a$12$46ehEXLweLHSYcC3Hah8u.GP6E7poxzVYP.HT685kIP1fQPf.TBQK"], ["name", "John Doe"], ["created_at", "2021-05-01 23:28:26.268825"], ["updated_at", "2021-05-01 23:28:26.268825"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "//users/sign_in" for ::1 at 2021-05-01 19:28:52 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Devise::SessionsController#create as */*
+  Parameters: {"email"=>"testmail@gmail.com", "password"=>"[FILTERED]"}
+Completed 401 Unauthorized in 36ms (ActiveRecord: 0.0ms | Allocations: 4694)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:29:25 -0400
+  
+ActionController::RoutingError (No route matches [POST] "/login"):
+  
+Started POST "/login" for ::1 at 2021-05-01 19:30:00 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#create as */*
+  Parameters: {"email"=>"testmail@gmail.com", "password"=>"[FILTERED]"}
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 3417)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:31:41 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#create as */*
+  Parameters: {"email"=>"testmail@gmail.com", "password"=>"[FILTERED]"}
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 3417)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:32:36 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"email"=>"testmail@gmail.com", "password"=>"[FILTERED]"}
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 365)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:32:47 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#create as */*
+  Parameters: {"email"=>"testmail@gmail.com", "password"=>"[FILTERED]"}
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 3419)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:32:48 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"email"=>"testmail@gmail.com", "password"=>"[FILTERED]"}
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 223)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:34:56 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 201ms (ActiveRecord: 9.3ms | Allocations: 8615)
+
+
+Started POST "/login" for ::1 at 2021-05-01 19:35:17 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 161ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 2179)
+
+
+Started POST "/login" for ::1 at 2021-05-01 20:05:42 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 165ms (Views: 0.1ms | ActiveRecord: 2.2ms | Allocations: 3619)
+
+
+Started POST "/logout" for ::1 at 2021-05-01 20:06:20 -0400
+  
+ActionController::RoutingError (No route matches [POST] "/logout"):
+  
+Started DELETE "/logout" for ::1 at 2021-05-01 20:07:02 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#destroy as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 2656)
+
+
+  
+NoMethodError (undefined method `respond_to' for #<Users::SessionsController:0x00000000006d88>
+Did you mean?  respond_to?
+               respond_with
+               responder
+               responder?
+               responder=):
+  
+devise (4.8.0) app/controllers/devise/sessions_controller.rb:78:in `respond_to_on_destroy'
+devise (4.8.0) app/controllers/devise/sessions_controller.rb:65:in `verify_signed_out_user'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:179:in `block (2 levels) in halting_and_conditional'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:180:in `block in halting_and_conditional'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:105:in `run_callbacks'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3.1) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3.1) lib/abstract_controller/base.rb:165:in `process'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.3.1) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/token_dispatcher.rb:20:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:21:in `call'
+rack (2.2.3) lib/rack/builder.rb:244:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware.rb:23:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.1.3.1) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.1.3.1) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started DELETE "/logout" for ::1 at 2021-05-01 20:08:31 -0400
+Processing by Users::SessionsController#destroy as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 2560)
+
+
+  
+NoMethodError (undefined method `respond_to' for #<Users::SessionsController:0x00000000008188>
+Did you mean?  respond_to?
+               respond_with
+               responder
+               responder?
+               responder=):
+  
+devise (4.8.0) app/controllers/devise/sessions_controller.rb:78:in `respond_to_on_destroy'
+devise (4.8.0) app/controllers/devise/sessions_controller.rb:65:in `verify_signed_out_user'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:179:in `block (2 levels) in halting_and_conditional'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:180:in `block in halting_and_conditional'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:105:in `run_callbacks'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3.1) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3.1) lib/abstract_controller/base.rb:165:in `process'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (6.1.3.1) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/token_dispatcher.rb:20:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:21:in `call'
+rack (2.2.3) lib/rack/builder.rb:244:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware.rb:23:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.1.3.1) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.1.3.1) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started DELETE "/logout" for ::1 at 2021-05-01 20:09:16 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#destroy as */*
+Filter chain halted as :verify_signed_out_user rendered or redirected
+Completed 200 OK in 2ms (ActiveRecord: 0.0ms | Allocations: 3273)
+
+
+  
+JWT::DecodeError (No verification key available):
+  
+jwt (2.2.3) lib/jwt/signature.rb:28:in `verify'
+jwt (2.2.3) lib/jwt/decode.rb:42:in `verify_signature'
+jwt (2.2.3) lib/jwt/decode.rb:26:in `decode_segments'
+jwt (2.2.3) lib/jwt.rb:28:in `decode'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/token_decoder.rb:17:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/token_revoker.rb:13:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:34:in `revoke_token'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:22:in `call'
+rack (2.2.3) lib/rack/builder.rb:244:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware.rb:23:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.1.3.1) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.1.3.1) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started DELETE "/logout" for ::1 at 2021-05-01 20:10:38 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#destroy as */*
+Filter chain halted as :verify_signed_out_user rendered or redirected
+Completed 200 OK in 2ms (ActiveRecord: 0.0ms | Allocations: 3273)
+
+
+  
+JWT::VerificationError (Signature verification raised):
+  
+jwt (2.2.3) lib/jwt/signature.rb:32:in `verify'
+jwt (2.2.3) lib/jwt/decode.rb:42:in `verify_signature'
+jwt (2.2.3) lib/jwt/decode.rb:26:in `decode_segments'
+jwt (2.2.3) lib/jwt.rb:28:in `decode'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/token_decoder.rb:17:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/token_revoker.rb:13:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:34:in `revoke_token'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:22:in `call'
+rack (2.2.3) lib/rack/builder.rb:244:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware.rb:23:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.1.3.1) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.1.3.1) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started POST "/login" for ::1 at 2021-05-01 20:10:48 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 168ms (Views: 0.1ms | ActiveRecord: 1.7ms | Allocations: 8296)
+
+
+Started DELETE "/logout" for ::1 at 2021-05-01 20:10:54 -0400
+Processing by Users::SessionsController#destroy as */*
+Filter chain halted as :verify_signed_out_user rendered or redirected
+Completed 200 OK in 0ms (ActiveRecord: 0.0ms | Allocations: 148)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Load (0.2ms)[0m  [1m[34mSELECT "jwt_denylist".* FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 AND "jwt_denylist"."exp" = $2 LIMIT $3[0m  [["jti", "daf8d42b-832e-410e-adce-c031f75f88ce"], ["exp", "2021-05-02 00:40:48"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mJwtDenylist Create (0.3ms)[0m  [1m[32mINSERT INTO "jwt_denylist" ("jti", "exp") VALUES ($1, $2) RETURNING "id"[0m  [["jti", "daf8d42b-832e-410e-adce-c031f75f88ce"], ["exp", "2021-05-02 00:40:48"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210502004607"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "tags" character varying[], "description" character varying NOT NULL, "img_file" json, "user_id" uuid NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_images_on_user_id" ON "images" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210502004607"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api/images" for ::1 at 2021-05-02 15:13:22 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#index as */*
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.0ms | Allocations: 2239)
+
+
+  
+NoMethodError (undefined method `doorkeeper_authorize!' for #<Api::ImagesController:0x00000000007198>):
+  
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:105:in `run_callbacks'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3.1) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3.1) lib/abstract_controller/base.rb:165:in `process'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/token_dispatcher.rb:20:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:21:in `call'
+rack (2.2.3) lib/rack/builder.rb:244:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware.rb:23:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.1.3.1) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.1.3.1) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started GET "/api/images" for ::1 at 2021-05-02 15:13:39 -0400
+Processing by Api::ImagesController#index as */*
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.0ms | Allocations: 2168)
+
+
+  
+NoMethodError (undefined method `devise_authenticate!' for #<Api::ImagesController:0x00000000008728>):
+  
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:105:in `run_callbacks'
+actionpack (6.1.3.1) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3.1) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3.1) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3.1) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3.1) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3.1) lib/abstract_controller/base.rb:165:in `process'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3.1) lib/action_dispatch/routing/route_set.rb:842:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/token_dispatcher.rb:20:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware/revocation_manager.rb:21:in `call'
+rack (2.2.3) lib/rack/builder.rb:244:in `call'
+warden-jwt_auth (0.5.0) lib/warden/jwt_auth/middleware.rb:23:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+activerecord (6.1.3.1) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (6.1.3.1) lib/rails/engine.rb:539:in `call'
+puma (5.2.2) lib/puma/configuration.rb:248:in `call'
+puma (5.2.2) lib/puma/request.rb:76:in `block in handle_request'
+puma (5.2.2) lib/puma/thread_pool.rb:337:in `with_force_shutdown'
+puma (5.2.2) lib/puma/request.rb:75:in `handle_request'
+puma (5.2.2) lib/puma/server.rb:431:in `process_client'
+puma (5.2.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started GET "/api/images" for ::1 at 2021-05-02 15:14:03 -0400
+Processing by Api::ImagesController#index as */*
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms | Allocations: 865)
+
+
+Started POST "/login" for ::1 at 2021-05-02 15:14:10 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 209ms (Views: 0.2ms | ActiveRecord: 3.0ms | Allocations: 10105)
+
+
+Started GET "/api/images" for ::1 at 2021-05-02 15:14:34 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "b7b6f518-ba12-430f-809b-cbfa24898645"], ["LIMIT", 1]]
+Completed 200 OK in 16ms (Views: 0.1ms | ActiveRecord: 1.7ms | Allocations: 8245)
+
+
+Started GET "/api/images" for ::1 at 2021-05-02 15:14:48 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "b7b6f518-ba12-430f-809b-cbfa24898645"], ["LIMIT", 1]]
+Completed 200 OK in 8ms (Views: 0.3ms | ActiveRecord: 2.2ms | Allocations: 7634)
+
+
+Started GET "/api/images" for ::1 at 2021-05-02 15:14:59 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "b7b6f518-ba12-430f-809b-cbfa24898645"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.6ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE "images"."user_id" = $1[0m  [["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"]]
+  ↳ app/controllers/api/images_controller.rb:7:in `index'
+Completed 200 OK in 15ms (Views: 3.9ms | ActiveRecord: 3.5ms | Allocations: 11594)
+
+
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.3ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "tags" character varying[], "description" character varying NOT NULL, "public_view" boolean DEFAULT TRUE NOT NULL, "img_file" json, "user_id" uuid NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_images_on_user_id" ON "images" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210502004607"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/login" for ::1 at 2021-05-02 18:45:25 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 170ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 11114)
+
+
+Started GET "/api/images" for ::1 at 2021-05-02 18:45:39 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.9ms | Allocations: 4454)
+
+
+  
+SyntaxError (/home/glenw/Projects/shopify-images/app/models/image.rb:26: syntax error, unexpected local variable or method, expecting `end'
+...earch_params.search_value)order(created_at: :desc)
+...                          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:27: syntax error, unexpected `when', expecting `end'
+    when :by_tag
+    ^~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:28: syntax error, unexpected local variable or method, expecting `end'
+...y_user(search_params.tags)order(created_at: :desc)
+...                          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:30: Invalid return in class/module body
+    return images
+    ^~~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:32: syntax error, unexpected `end', expecting end-of-input):
+  
+app/models/image.rb:26: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:27: syntax error, unexpected `when', expecting `end'
+app/models/image.rb:28: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:30: Invalid return in class/module body
+app/models/image.rb:32: syntax error, unexpected `end', expecting end-of-input
+app/models/image.rb:26: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:27: syntax error, unexpected `when', expecting `end'
+app/models/image.rb:28: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:30: Invalid return in class/module body
+app/models/image.rb:32: syntax error, unexpected `end', expecting end-of-input
+app/controllers/api/images_controller.rb:6:in `index'
+Started GET "/api/images" for ::1 at 2021-05-02 18:46:27 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 2.2ms | Allocations: 7573)
+
+
+  
+SyntaxError (/home/glenw/Projects/shopify-images/app/models/image.rb:27: syntax error, unexpected local variable or method, expecting `end'
+...earch_params.search_value)order(created_at: :desc)
+...                          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:29: syntax error, unexpected `when', expecting `end'
+    when :by_tag
+    ^~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:30: syntax error, unexpected local variable or method, expecting `end'
+...y_user(search_params.tags)order(created_at: :desc)
+...                          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:33: Invalid return in class/module body
+    return images
+    ^~~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:35: syntax error, unexpected `end', expecting end-of-input):
+  
+app/models/image.rb:27: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:29: syntax error, unexpected `when', expecting `end'
+app/models/image.rb:30: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:33: Invalid return in class/module body
+app/models/image.rb:35: syntax error, unexpected `end', expecting end-of-input
+app/models/image.rb:27: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:29: syntax error, unexpected `when', expecting `end'
+app/models/image.rb:30: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:33: Invalid return in class/module body
+app/models/image.rb:35: syntax error, unexpected `end', expecting end-of-input
+app/controllers/api/images_controller.rb:6:in `index'
+Started GET "/api/images" for ::1 at 2021-05-02 18:47:15 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 2.0ms | Allocations: 7581)
+
+
+  
+SyntaxError (/home/glenw/Projects/shopify-images/app/models/image.rb:27: syntax error, unexpected local variable or method, expecting `end'
+...earch_params.search_value)order(created_at: :desc)
+...                          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:29: syntax error, unexpected `when', expecting `end'
+    when "by_tag"
+    ^~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:30: syntax error, unexpected local variable or method, expecting `end'
+...y_user(search_params.tags)order(created_at: :desc)
+...                          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:33: Invalid return in class/module body
+    return images
+    ^~~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:35: syntax error, unexpected `end', expecting end-of-input):
+  
+app/models/image.rb:27: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:29: syntax error, unexpected `when', expecting `end'
+app/models/image.rb:30: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:33: Invalid return in class/module body
+app/models/image.rb:35: syntax error, unexpected `end', expecting end-of-input
+app/models/image.rb:27: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:29: syntax error, unexpected `when', expecting `end'
+app/models/image.rb:30: syntax error, unexpected local variable or method, expecting `end'
+app/models/image.rb:33: Invalid return in class/module body
+app/models/image.rb:35: syntax error, unexpected `end', expecting end-of-input
+app/controllers/api/images_controller.rb:6:in `index'
+Started GET "/api/images" for ::1 at 2021-05-02 18:55:55 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.2ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE "images"."user_id" = $1[0m  [["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"]]
+  ↳ app/controllers/api/images_controller.rb:7:in `index'
+Completed 200 OK in 15ms (Views: 1.8ms | ActiveRecord: 3.1ms | Allocations: 17171)
+
+
+Started POST "/api/images" for ::1 at 2021-05-02 19:00:57 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055bf33a77608 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-16xspc.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.3ms | Allocations: 3051)
+
+
+  
+NoMethodError (undefined method `title' for #<ActionController::Parameters {"title"=>"The first test picture", "img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055bf33a77608 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-16xspc.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "description"=>"This is a cool picture dont you think", "public_view"=>"true"} permitted: true>):
+  
+app/models/image.rb:12:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 19:02:27 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055bf33867340 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-25xx8w.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 2.2ms | Allocations: 7511)
+
+
+  
+SyntaxError (/home/glenw/Projects/shopify-images/app/models/image.rb:13: syntax error, unexpected '['
+      tags: image_params.[:tags],
+                         ^
+):
+  
+app/models/image.rb:13: syntax error, unexpected '['
+app/models/image.rb:13: syntax error, unexpected '['
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 19:02:45 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055bf335caf60 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-e31xg.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:10:in `create_image'
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 3.2ms | Allocations: 15657)
+
+
+  
+ActiveModel::MissingAttributeError (can't write unknown attribute `img_files`):
+  
+app/models/image.rb:10:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 19:04:01 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x00007f81dc90ee98 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-rmk4am.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 2.0ms | Allocations: 11927)
+
+
+  
+NoMethodError (undefined method `new!' for Image:Class
+Did you mean?  new):
+  
+app/models/image.rb:10:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 19:04:11 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x00007f81d02f80b0 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-abzahm.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 3.0ms | Allocations: 13633)
+
+
+  
+NoMethodError (undefined method `img_file' for #<ActionController::Parameters {"title"=>"The first test picture", "img_file"=>#<ActionDispatch::Http::UploadedFile:0x00007f81d02f80b0 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-abzahm.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "description"=>"This is a cool picture dont you think", "public_view"=>"true"} permitted: true>):
+  
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 19:04:25 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055bf33e7f930 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5191-av7y1i.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "943a02bd-9eb2-4006-b7a2-9ca6a4f24dfa"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:18:in `create_image'
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 3.1ms | Allocations: 14623)
+
+
+  
+ActiveModel::MissingAttributeError (can't write unknown attribute `img_files`):
+  
+app/models/image.rb:18:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateImages (20210502004607)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.4ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "title" character varying NOT NULL, "tags" character varying[], "description" character varying NOT NULL, "public_view" boolean DEFAULT TRUE NOT NULL, "user_id" uuid NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_images_on_user_id" ON "images" ("user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210502004607"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/images" for ::1 at 2021-05-02 19:48:44 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x0000560a540c46a8 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5972-n4ng8j.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 1028)
+
+
+Started POST "/login" for ::1 at 2021-05-02 19:48:56 -0400
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 169ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 10122)
+
+
+Started POST "/api/images" for ::1 at 2021-05-02 19:49:04 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x0000560a542f9108 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-5972-zij8ty.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 2.3ms | Allocations: 16268)
+
+
+  
+ActiveRecord::StatementInvalid (PG::UndefinedTable: ERROR:  relation "active_storage_blobs" does not exist
+LINE 8:  WHERE a.attrelid = '"active_storage_blobs"'::regclass
+                            ^
+):
+  
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1647574327684323360)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateActiveStorageTables (20210502234929)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210502234929"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1647574327684323360)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/images" for ::1 at 2021-05-02 19:49:55 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x0000555febeebc40 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-6170-fmy50z.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mImage Create (1.4ms)[0m  [1m[32mINSERT INTO "images" ("title", "description", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "The first test picture"], ["description", "This is a cool picture dont you think"], ["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["created_at", "2021-05-02 23:49:55.941550"], ["updated_at", "2021-05-02 23:49:55.941550"]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mActiveStorage::Blob Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "57uky3kk2g2yee00arutg8jezccl"], ["filename", "Test_image.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 41395], ["checksum", "u7rNB7oYSOJK6Q4jIIRL/Q=="], ["created_at", "2021-05-02 23:49:55.967308"]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mActiveStorage::Attachment Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "img_file"], ["record_type", "Image"], ["record_id", 44], ["blob_id", 1], ["created_at", "2021-05-02 23:49:55.968494"]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mImage Update (0.2ms)[0m  [1m[33mUPDATE "images" SET "updated_at" = $1 WHERE "images"."id" = $2[0m  [["updated_at", "2021-05-02 23:49:55.969687"], ["id", "44c512e2-5dde-4950-950a-d096a483a094"]]
+  ↳ app/models/image.rb:18:in `create_image'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/image.rb:18:in `create_image'
+[36m  Disk Storage (0.2ms) [0m[32mUploaded file to key: 57uky3kk2g2yee00arutg8jezccl (checksum: u7rNB7oYSOJK6Q4jIIRL/Q==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 4e655159-b2bd-4273-a5f0-e8f8724d6795) to Async(default) with arguments: #<GlobalID:0x0000555feaf63598 @uri=#<URI::GID gid://shopify-images/ActiveStorage::Blob/1>>
+Completed 200 OK in 60ms (Views: 0.2ms | ActiveRecord: 9.5ms | Allocations: 49877)
+
+
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795] Performing ActiveStorage::AnalyzeJob (Job ID: 4e655159-b2bd-4273-a5f0-e8f8724d6795) from Async(default) enqueued at 2021-05-02T23:49:55Z with arguments: #<GlobalID:0x0000555feb4338c0 @uri=#<URI::GID gid://shopify-images/ActiveStorage::Blob/1>>
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795] [36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 57uky3kk2g2yee00arutg8jezccl[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795] Skipping image analysis because the mini_magick gem isn't installed
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795]   [1m[36mActiveStorage::Blob Update (0.2ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795]   [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [4e655159-b2bd-4273-a5f0-e8f8724d6795] Performed ActiveStorage::AnalyzeJob (Job ID: 4e655159-b2bd-4273-a5f0-e8f8724d6795) from Async(default) in 6.14ms
+Started GET "/api/images" for ::1 at 2021-05-02 19:55:29 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.1ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE "images"."user_id" = $1[0m  [["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"]]
+  ↳ app/controllers/api/images_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:5:in `img_url'
+[active_model_serializers]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:6:in `img_url'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (15.73ms)
+Completed 200 OK in 43ms (Views: 26.8ms | ActiveRecord: 6.1ms | Allocations: 40232)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0ddabf7731af1c47615f1833d39228905904a408/Test_image.png" for ::1 at 2021-05-02 19:55:34 -0400
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0ddabf7731af1c47615f1833d39228905904a408", "filename"=>"Test_image"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[36m  Disk Storage (3.5ms) [0m[34mGenerated URL for file at key: 57uky3kk2g2yee00arutg8jezccl (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhOVGQxYTNremEyc3laeko1WldVd01HRnlkWFJuT0dwbGVtTmpiQVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWxSbGMzUmZhVzFoWjJVdWNHNW5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWRVWlhOMFgybHRZV2RsTG5CdVp3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEbWx0WVdkbEwzQnVad1k3QmxRNkVYTmxjblpwWTJWZmJtRnRaVG9LYkc5allXdz0iLCJleHAiOiIyMDIxLTA1LTAzVDAwOjAwOjM0LjIzM1oiLCJwdXIiOiJibG9iX2tleSJ9fQ==--ddd19d90b0cbb3a14d3ef74253ffab70f263c922/Test_image.png)[0m
+Redirected to http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhOVGQxYTNremEyc3laeko1WldVd01HRnlkWFJuT0dwbGVtTmpiQVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWxSbGMzUmZhVzFoWjJVdWNHNW5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWRVWlhOMFgybHRZV2RsTG5CdVp3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEbWx0WVdkbEwzQnVad1k3QmxRNkVYTmxjblpwWTJWZmJtRnRaVG9LYkc5allXdz0iLCJleHAiOiIyMDIxLTA1LTAzVDAwOjAwOjM0LjIzM1oiLCJwdXIiOiJibG9iX2tleSJ9fQ==--ddd19d90b0cbb3a14d3ef74253ffab70f263c922/Test_image.png
+Completed 302 Found in 10ms (ActiveRecord: 0.2ms | Allocations: 6449)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhOVGQxYTNremEyc3laeko1WldVd01HRnlkWFJuT0dwbGVtTmpiQVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpUjJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWxSbGMzUmZhVzFoWjJVdWNHNW5JanNnWm1sc1pXNWhiV1VxUFZWVVJpMDRKeWRVWlhOMFgybHRZV2RsTG5CdVp3WTdCbFE2RVdOdmJuUmxiblJmZEhsd1pVa2lEbWx0WVdkbEwzQnVad1k3QmxRNkVYTmxjblpwWTJWZmJtRnRaVG9LYkc5allXdz0iLCJleHAiOiIyMDIxLTA1LTAzVDAwOjAwOjM0LjIzM1oiLCJwdXIiOiJibG9iX2tleSJ9fQ==--ddd19d90b0cbb3a14d3ef74253ffab70f263c922/Test_image.png" for ::1 at 2021-05-02 19:55:34 -0400
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"Test_image"}
+Completed 200 OK in 0ms (ActiveRecord: 0.0ms | Allocations: 321)
+
+
+Started GET "/favicon.ico" for ::1 at 2021-05-02 19:55:34 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started POST "/api/images/search" for ::1 at 2021-05-02 19:58:14 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 224)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 19:58:27 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.4ms | Allocations: 4433)
+
+
+  
+NameError (undefined local variable or method `image_search_pararms' for #<Api::ImagesController:0x00000000007f30>
+Did you mean?  image_serach_params):
+  
+app/controllers/api/images_controller.rb:30:in `search_image'
+Started POST "/api/images/search" for ::1 at 2021-05-02 19:58:40 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 2.2ms | Allocations: 9280)
+
+
+  
+NoMethodError (undefined method `search_by' for #<ActionController::Parameters {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"} permitted: true>):
+  
+app/models/image.rb:24:in `search_image'
+app/controllers/api/images_controller.rb:30:in `search_image'
+Started POST "/api/images/search" for ::1 at 2021-05-02 19:59:24 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Class (0.04ms)
+Completed 200 OK in 11ms (Views: 0.9ms | ActiveRecord: 2.6ms | Allocations: 9377)
+
+
+Started GET "/api/images" for ::1 at 2021-05-02 19:59:56 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.1ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE "images"."user_id" = $1[0m  [["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"]]
+  ↳ app/controllers/api/images_controller.rb:7:in `index'
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 3.5ms | Allocations: 13646)
+
+
+  
+SyntaxError (/home/glenw/Projects/shopify-images/app/serializers/image_serializer.rb:2: syntax error, unexpected symbol literal
+...:tags, :created_at, :img_url. :public_view
+...                              ^
+):
+  
+app/serializers/image_serializer.rb:2: syntax error, unexpected symbol literal
+app/serializers/image_serializer.rb:2: syntax error, unexpected symbol literal
+app/controllers/api/images_controller.rb:7:in `index'
+Started GET "/api/images" for ::1 at 2021-05-02 20:00:06 -0400
+Processing by Api::ImagesController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.1ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE "images"."user_id" = $1[0m  [["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"]]
+  ↳ app/controllers/api/images_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:5:in `img_url'
+[active_model_serializers]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:6:in `img_url'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (13.54ms)
+Completed 200 OK in 29ms (Views: 16.1ms | ActiveRecord: 6.1ms | Allocations: 28371)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:00:29 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.05ms)
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 2.3ms | Allocations: 8690)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:00:40 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title LIKE '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) /* loading for inspect */ ORDER BY "images"."created_at" DESC LIMIT $1[0m  [["LIMIT", 11]]
+  ↳ app/models/image.rb:25:in `search_image'
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title LIKE '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  ↳ app/models/image.rb:25:in `search_image'
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (user_id = '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  ↳ app/models/image.rb:25:in `search_image'
+  [1m[36mCACHE Image Load (0.0ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (user_id = '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  ↳ app/models/image.rb:25:in `search_image'
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (user_id = '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) /* loading for inspect */ ORDER BY "images"."created_at" DESC LIMIT $1[0m  [["LIMIT", 11]]
+  ↳ app/models/image.rb:25:in `search_image'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.08ms)
+Completed 200 OK in 136642ms (Views: 0.8ms | ActiveRecord: 5.0ms | Allocations: 87803)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:03:14 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.2ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (user_id = '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) /* loading for inspect */ ORDER BY "images"."created_at" DESC LIMIT $1[0m  [["LIMIT", 11]]
+  ↳ app/models/image.rb:34:in `search_image'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.09ms)
+Completed 200 OK in 29244ms (Views: 0.7ms | ActiveRecord: 3.8ms | Allocations: 17121)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:03:46 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"user", "search_value"=>"3634e527-7499-46bf-9a2c-ad6205e2a587"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.1ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (user_id = '3634e527-7499-46bf-9a2c-ad6205e2a587' AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers]   [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:5:in `img_url'
+[active_model_serializers]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:6:in `img_url'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (13.64ms)
+Completed 200 OK in 29ms (Views: 14.7ms | ActiveRecord: 5.9ms | Allocations: 28700)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:04:39 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"test"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title LIKE 'test' AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.05ms)
+Completed 200 OK in 2745ms (Views: 1.1ms | ActiveRecord: 0.6ms | Allocations: 5094)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:05:13 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"The first"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title LIKE 'The first' AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.04ms)
+Completed 200 OK in 1452ms (Views: 1.1ms | ActiveRecord: 0.6ms | Allocations: 4674)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:05:26 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"The first"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title ILIKE 'The first' AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.05ms)
+Completed 200 OK in 1874ms (Views: 1.4ms | ActiveRecord: 3.0ms | Allocations: 12245)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:05:41 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"The first test picture"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title ILIKE 'The first test picture' AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers]   [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:5:in `img_url'
+[active_model_serializers]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:6:in `img_url'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (13.61ms)
+Completed 200 OK in 2075ms (Views: 20.1ms | ActiveRecord: 3.9ms | Allocations: 22618)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:07:00 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"The first"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title ILIKE %'The first'% AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+Completed 500 Internal Server Error in 1379ms (ActiveRecord: 3.2ms | Allocations: 12292)
+
+
+  
+ActiveRecord::StatementInvalid (PG::SyntaxError: ERROR:  syntax error at or near "%"
+LINE 1: ...ELECT "images".* FROM "images" WHERE (title ILIKE %'The firs...
+                                                             ^
+):
+  
+app/controllers/api/images_controller.rb:31:in `search_image'
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:07:44 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"The first"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 2.2ms | Allocations: 7495)
+
+
+  
+SyntaxError (/home/glenw/Projects/shopify-images/app/models/image.rb:6: syntax error, unexpected local variable or method, expecting ')'
+...user, ->(user) { where("user_id = ? AND public_view = true",...
+...                        ^~~~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:6: syntax error, unexpected string literal, expecting '}'
+..._id = ? AND public_view = true", user) }
+...                              ^
+/home/glenw/Projects/shopify-images/app/models/image.rb:7: syntax error, unexpected local variable or method, expecting '}'
+...:by_tag, ->(tags) { where("tags @> ARRAY[?]::varchar[] AND p...
+...                           ^~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:7: `@' without identifiers is not allowed as an instance variable name
+...y_tag, ->(tags) { where("tags @> ARRAY[?]::varchar[] AND pub...
+...                              ^
+/home/glenw/Projects/shopify-images/app/models/image.rb:7: syntax error, unexpected constant, expecting ']'
+...tags @> ARRAY[?]::varchar[] AND public_view = true", tags) }
+...                            ^~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:7: syntax error, unexpected string literal, expecting '}'
+...rchar[] AND public_view = true", tags) }
+...                              ^
+/home/glenw/Projects/shopify-images/app/models/image.rb:25: syntax error, unexpected local variable or method, expecting '}'
+    when "title"
+          ^~~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:27: syntax error, unexpected local variable or method, expecting '}'
+    when "user"
+          ^~~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:30: syntax error, unexpected local variable or method, expecting '}'
+    when "tag"
+          ^~~
+/home/glenw/Projects/shopify-images/app/models/image.rb:36: unterminated string meets end of file
+/home/glenw/Projects/shopify-images/app/models/image.rb:36: syntax error, unexpected end-of-input, expecting '}'):
+  
+app/models/image.rb:6: syntax error, unexpected local variable or method, expecting ')'
+app/models/image.rb:6: syntax error, unexpected string literal, expecting '}'
+app/models/image.rb:7: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:7: `@' without identifiers is not allowed as an instance variable name
+app/models/image.rb:7: syntax error, unexpected constant, expecting ']'
+app/models/image.rb:7: syntax error, unexpected string literal, expecting '}'
+app/models/image.rb:25: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:27: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:30: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:36: unterminated string meets end of file
+app/models/image.rb:36: syntax error, unexpected end-of-input, expecting '}'
+app/models/image.rb:6: syntax error, unexpected local variable or method, expecting ')'
+app/models/image.rb:6: syntax error, unexpected string literal, expecting '}'
+app/models/image.rb:7: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:7: `@' without identifiers is not allowed as an instance variable name
+app/models/image.rb:7: syntax error, unexpected constant, expecting ']'
+app/models/image.rb:7: syntax error, unexpected string literal, expecting '}'
+app/models/image.rb:25: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:27: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:30: syntax error, unexpected local variable or method, expecting '}'
+app/models/image.rb:36: unterminated string meets end of file
+app/models/image.rb:36: syntax error, unexpected end-of-input, expecting '}'
+app/controllers/api/images_controller.rb:30:in `search_image'
+Started POST "/api/images/search" for ::1 at 2021-05-02 20:07:53 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"title", "search_value"=>"The first"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "f8cd9957-5486-4d0c-83a0-f663237ee5d2"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (title ILIKE '%The first%' AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers]   [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 44], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:5:in `img_url'
+[active_model_serializers]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:6:in `img_url'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (14.34ms)
+Completed 200 OK in 1899ms (Views: 15.3ms | ActiveRecord: 7.0ms | Allocations: 30103)
+
+
+Started POST "/login" for ::1 at 2021-05-02 22:42:23 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 170ms (Views: 0.9ms | ActiveRecord: 2.1ms | Allocations: 11817)
+
+
+Started POST "/api/images" for ::1 at 2021-05-02 22:42:46 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055c3af5a9f88 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-7931-kaqqfm.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 3.3ms | Allocations: 22956)
+
+
+  
+NoMethodError (undefined method `generate_tags' for Image:Class):
+  
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 22:43:38 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055c3aeb8bf88 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-7931-e1zj4i.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 3023ms (ActiveRecord: 4.2ms | Allocations: 22670)
+
+
+  
+Aws::Errors::MissingRegionError (No region was provided. Configure the `:region` option or export the region name to ENV['AWS_REGION']):
+  
+app/models/image.rb:40:in `generate_tags'
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 22:44:54 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x00007f3518021058 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-7931-sjyhlq.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 3005ms (ActiveRecord: 0.3ms | Allocations: 4091)
+
+
+  
+Aws::Errors::MissingRegionError (No region was provided. Configure the `:region` option or export the region name to ENV['AWS_REGION']):
+  
+app/models/image.rb:40:in `generate_tags'
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 22:45:16 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x0000561d4ad5b548 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-8226-omxru1.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 3033ms (ActiveRecord: 4.6ms | Allocations: 30182)
+
+
+  
+Aws::Errors::MissingRegionError (No region was provided. Configure the `:region` option or export the region name to ENV['AWS_REGION']):
+  
+app/models/image.rb:40:in `generate_tags'
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 22:46:26 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055aa6c6b8778 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-8575-a5pyd7.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 3038ms (ActiveRecord: 4.9ms | Allocations: 46174)
+
+
+  
+Aws::Errors::MissingCredentialsError (unable to sign request without credentials set):
+  
+app/models/image.rb:41:in `generate_tags'
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 22:48:09 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000055d333a2f308 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-8823-xm6qzo.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+Completed 500 Internal Server Error in 467ms (ActiveRecord: 5.4ms | Allocations: 46889)
+
+
+  
+Aws::Rekognition::Errors::UnrecognizedClientException (The security token included in the request is invalid.):
+  
+app/models/image.rb:41:in `generate_tags'
+app/models/image.rb:17:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 22:52:40 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x000056134fb57120 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-9114-mxlyeq.png>, @original_filename="Test_image.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"Test_image.png\"\r\nContent-Type: image/png\r\n">, "title"=>"The first test picture", "description"=>"This is a cool picture dont you think", "tags"=>"test", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+[31mUnpermitted parameter: :tags[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mImage Create (0.6ms)[0m  [1m[32mINSERT INTO "images" ("title", "description", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "The first test picture"], ["description", "This is a cool picture dont you think"], ["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["created_at", "2021-05-03 02:53:56.202218"], ["updated_at", "2021-05-03 02:53:56.202218"]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 3], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 3], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mActiveStorage::Blob Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "cy6oihl8iydzojfo1hqx42tt6m49"], ["filename", "Test_image.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 41395], ["checksum", "u7rNB7oYSOJK6Q4jIIRL/Q=="], ["created_at", "2021-05-03 02:53:56.212481"]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "img_file"], ["record_type", "Image"], ["record_id", 3], ["blob_id", 2], ["created_at", "2021-05-03 02:53:56.213542"]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mImage Update (0.1ms)[0m  [1m[33mUPDATE "images" SET "updated_at" = $1 WHERE "images"."id" = $2[0m  [["updated_at", "2021-05-03 02:53:56.214432"], ["id", "3c4582b2-a06c-4a68-830c-00ee1fa7b06f"]]
+  ↳ app/models/image.rb:19:in `create_image'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/image.rb:19:in `create_image'
+[36m  Disk Storage (0.2ms) [0m[32mUploaded file to key: cy6oihl8iydzojfo1hqx42tt6m49 (checksum: u7rNB7oYSOJK6Q4jIIRL/Q==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 73770676-9fe1-4d7f-a4ce-e4159f75d6b1) to Async(default) with arguments: #<GlobalID:0x00007f3dbd0ff9e0 @uri=#<URI::GID gid://shopify-images/ActiveStorage::Blob/2>>
+[active_model_serializers] Rendered ImageSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 75920ms (Views: 2.0ms | ActiveRecord: 8.6ms | Allocations: 122897)
+
+
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1] Performing ActiveStorage::AnalyzeJob (Job ID: 73770676-9fe1-4d7f-a4ce-e4159f75d6b1) from Async(default) enqueued at 2021-05-03T02:53:56Z with arguments: #<GlobalID:0x00007f3da0064160 @uri=#<URI::GID gid://shopify-images/ActiveStorage::Blob/2>>
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1] [36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy6oihl8iydzojfo1hqx42tt6m49[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1] Skipping image analysis because the mini_magick gem isn't installed
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1]   [1m[36mActiveStorage::Blob Update (0.2ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 2]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1]   [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [73770676-9fe1-4d7f-a4ce-e4159f75d6b1] Performed ActiveStorage::AnalyzeJob (Job ID: 73770676-9fe1-4d7f-a4ce-e4159f75d6b1) from Async(default) in 5.49ms
+Started POST "/api/images" for ::1 at 2021-05-02 22:58:46 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x0000564943f22258 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-9720-l2fir8.jpg>, @original_filename="nature-forest-trees-path.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"nature-forest-trees-path.jpg\"\r\nContent-Type: image/jpeg\r\n">, "title"=>"The secondtest picture", "description"=>"This is a cool picture dont you think", "public_view"=>"true"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:25:in `create_image'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/image.rb:25:in `create_image'
+  [1m[36mImage Create (0.3ms)[0m  [1m[32mINSERT INTO "images" ("title", "tags", "description", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "The secondtest picture"], ["tags", "{:labels=>[{:name=>\"[FILTERED]\", :confidence=>99.99989318847656}, {:name=>\"[FILTERED]\", :confidence=>99.99989318847656}, {:name=>\"[FILTERED]\", :confidence=>99.99952697753906}, {:name=>\"[FILTERED]\", :confidence=>99.99952697753906}, {:name=>\"[FILTERED]\", :confidence=>99.99952697753906}, {:name=>\"[FILTERED]\", :confidence=>99.99952697753906}, {:name=>\"[FILTERED]\", :confidence=>99.99952697753906}, {:name=>\"[FILTERED]\", :confidence=>99.99952697753906}, {:name=>\"[FILTERED]\", :confidence=>99.99739074707031}, {:name=>\"[FILTERED]\", :confidence=>98.52436828613281}, {:name=>\"[FILTERED]\", :confidence=>97.54583740234375}, {:name=>\"[FILTERED]\", :confidence=>94.46298217773438}, {:name=>\"[FILTERED]\", :confidence=>91.48991394042969}, {:name=>\"[FILTERED]\", :confidence=>90.2481460571289}, {:name=>\"[FILTERED]\", :confidence=>61.18672561645508}], :orientation_correction=>nil}"], ["description", "This is a cool picture dont you think"], ["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["created_at", "2021-05-03 02:58:48.205122"], ["updated_at", "2021-05-03 02:58:48.205122"]]
+  ↳ app/models/image.rb:25:in `create_image'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/models/image.rb:25:in `create_image'
+Completed 500 Internal Server Error in 1579ms (ActiveRecord: 5.4ms | Allocations: 52545)
+
+
+  
+ActiveRecord::StatementInvalid (PG::InvalidTextRepresentation: ERROR:  malformed array literal: "{:labels=>[{:name=>"[FILTERED]", :confidence=>99.99989318847656}, {:name=>"[FILTERED]", :confidence=>99.99989318847656}, {:name=>"[FILTERED]", :confidence=>99.99952697753906}, {:name=>"[FILTERED]", :confidence=>99.99952697753906}, {:name=>"[FILTERED]", :confidence=>99.99952697753906}, {:name=>"[FILTERED]", :confidence=>99.99952697753906}, {:name=>"[FILTERED]", :confidence=>99.99952697753906}, {:name=>"[FILTERED]", :confidence=>99.99952697753906}, {:name=>"[FILTERED]", :confidence=>99.99739074707031}, {:name=>"[FILTERED]", :confidence=>98.52436828613281}, {:name=>"[FILTERED]", :confidence=>97.54583740234375}, {:name=>"[FILTERED]", :confidence=>94.46298217773438}, {:name=>"[FILTERED]", :confidence=>91.48991394042969}, {:name=>"[FILTERED]", :confidence=>90.2481460571289}, {:name=>"[FILTERED]", :confidence=>61.18672561645508}], :orientation_correction=>nil}"
+DETAIL:  Unexpected "{" character.
+):
+  
+app/models/image.rb:25:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 23:02:26 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x00007ffba81b16c8 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-9720-1mhfwk.jpg>, @original_filename="nature-forest-trees-path.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"nature-forest-trees-path.jpg\"\r\nContent-Type: image/jpeg\r\n">, "title"=>"The secondtest picture", "description"=>"This is a cool picture dont you think", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 1507ms (ActiveRecord: 4.2ms | Allocations: 27150)
+
+
+  
+NameError (undefined local variable or method `label' for Image:Class):
+  
+app/models/image.rb:13:in `block in generate_tags'
+app/models/image.rb:13:in `map'
+app/models/image.rb:13:in `generate_tags'
+app/models/image.rb:26:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 23:02:40 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x00007ffb9c4b9610 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-9720-wkaqa8.jpg>, @original_filename="nature-forest-trees-path.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"nature-forest-trees-path.jpg\"\r\nContent-Type: image/jpeg\r\n">, "title"=>"The secondtest picture", "description"=>"This is a cool picture dont you think", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 1442ms (ActiveRecord: 4.4ms | Allocations: 24350)
+
+
+  
+NameError (no member 'name' in struct):
+  
+app/models/image.rb:13:in `block in generate_tags'
+app/models/image.rb:13:in `map'
+app/models/image.rb:13:in `generate_tags'
+app/models/image.rb:26:in `create_image'
+app/controllers/api/images_controller.rb:11:in `create'
+Started POST "/api/images" for ::1 at 2021-05-02 23:03:18 -0400
+Processing by Api::ImagesController#create as */*
+  Parameters: {"img_file"=>#<ActionDispatch::Http::UploadedFile:0x0000564943f41068 @tempfile=#<Tempfile:/tmp/RackMultipart20210502-9720-3b8z44.jpg>, @original_filename="nature-forest-trees-path.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"img_file\"; filename=\"nature-forest-trees-path.jpg\"\r\nContent-Type: image/jpeg\r\n">, "title"=>"The secondtest picture", "description"=>"This is a cool picture dont you think", "public_view"=>"true"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "779eee2f-a23b-46de-81f7-17a818cdafa2"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mImage Create (0.5ms)[0m  [1m[32mINSERT INTO "images" ("title", "tags", "description", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "The secondtest picture"], ["tags", "{Vegetation,Plant,Woodland,Forest,Land,Tree,Nature,Outdoors,Grove,Jungle,Path,Rainforest,Sunlight,Trail,Grass}"], ["description", "This is a cool picture dont you think"], ["user_id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["created_at", "2021-05-03 03:03:56.673745"], ["updated_at", "2021-05-03 03:03:56.673745"]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 409], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 409], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mActiveStorage::Blob Create (0.1ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "2hpkw0pq9x4go6t670o12vav9una"], ["filename", "nature-forest-trees-path.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 260120], ["checksum", "Ul8JHldqLrpICsPK5mpuxA=="], ["created_at", "2021-05-03 03:03:56.687474"]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "img_file"], ["record_type", "Image"], ["record_id", 409], ["blob_id", 3], ["created_at", "2021-05-03 03:03:56.688529"]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mImage Update (0.2ms)[0m  [1m[33mUPDATE "images" SET "updated_at" = $1 WHERE "images"."id" = $2[0m  [["updated_at", "2021-05-03 03:03:56.689718"], ["id", "409d7b37-7bf2-486c-bb2e-36ca5a718a85"]]
+  ↳ app/models/image.rb:27:in `create_image'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/image.rb:27:in `create_image'
+[36m  Disk Storage (0.6ms) [0m[32mUploaded file to key: 2hpkw0pq9x4go6t670o12vav9una (checksum: Ul8JHldqLrpICsPK5mpuxA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: d82973a5-0734-4ea6-bccd-664f48f91ff5) to Async(default) with arguments: #<GlobalID:0x00007ffb9c0bc918 @uri=#<URI::GID gid://shopify-images/ActiveStorage::Blob/3>>
+[active_model_serializers] Rendered ImageSerializer with ActiveModelSerializers::Adapter::Attributes (0.59ms)
+Completed 200 OK in 38563ms (Views: 1.9ms | ActiveRecord: 8.3ms | Allocations: 97356)
+
+
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5] Performing ActiveStorage::AnalyzeJob (Job ID: d82973a5-0734-4ea6-bccd-664f48f91ff5) from Async(default) enqueued at 2021-05-03T03:03:56Z with arguments: #<GlobalID:0x00007ffba8611a60 @uri=#<URI::GID gid://shopify-images/ActiveStorage::Blob/3>>
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5] [36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 2hpkw0pq9x4go6t670o12vav9una[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5] Skipping image analysis because the mini_magick gem isn't installed
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5]   [1m[36mActiveStorage::Blob Update (0.2ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 3]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5]   [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [d82973a5-0734-4ea6-bccd-664f48f91ff5] Performed ActiveStorage::AnalyzeJob (Job ID: d82973a5-0734-4ea6-bccd-664f48f91ff5) from Async(default) in 16.63ms
+Started POST "/login" for ::1 at 2021-05-02 23:05:52 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 169ms (Views: 0.8ms | ActiveRecord: 1.8ms | Allocations: 11817)
+
+
+Started POST "/api/images/search" for ::1 at 2021-05-02 23:06:18 -0400
+Processing by Api::ImagesController#search_image as */*
+  Parameters: {"search_by"=>"tag", "search_value"=>"Plant"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", "3634e527-7499-46bf-9a2c-ad6205e2a587"], ["LIMIT", 1]]
+  [1m[36mJwtDenylist Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "jwt_denylist" WHERE "jwt_denylist"."jti" = $1 LIMIT $2[0m  [["jti", "5c695a9a-9b31-49c7-9fec-627036f6cd55"], ["LIMIT", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1m[34mSELECT "images".* FROM "images" WHERE (tags @> ARRAY['Plant']::varchar[] AND public_view = true) ORDER BY "images"."created_at" DESC[0m
+  ↳ app/controllers/api/images_controller.rb:31:in `search_image'
+[active_model_serializers]   [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 409], ["record_type", "Image"], ["name", "img_file"], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:5:in `img_url'
+[active_model_serializers]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/image_serializer.rb:6:in `img_url'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (16.5ms)
+Completed 200 OK in 34ms (Views: 23.3ms | ActiveRecord: 5.4ms | Allocations: 30300)
+
+
