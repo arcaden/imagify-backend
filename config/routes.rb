@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+  namespace 'api' do
+    resources :images
+    post 'images/search', to: 'images#search_image'
+  end
 end
