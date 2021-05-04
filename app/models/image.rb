@@ -8,7 +8,7 @@ class Image < ApplicationRecord
 
   def self.generate_tags(img_file)
     client = Aws::Rekognition::Client.new
-    response = client.detect_labels({ image: { bytes: img_file }, min_confidence: 80, max_label: 5})
+    response = client.detect_labels({ image: { bytes: img_file }, min_confidence: 80, max_labels: 5})
     tags = response[:labels].map{ |label| label[:name] }
     return tags
   end 
