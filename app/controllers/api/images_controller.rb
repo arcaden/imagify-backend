@@ -9,7 +9,7 @@ class Api::ImagesController < ApplicationController
 
     def create
         @image = Image.create_image(create_image_params, current_user)
-        @image.update(tags: Image.generate_tags(image_params[:img_file]))
+        @image.update(tags: Image.generate_tags(create_image_params[:img_file]))
         render json: @image, status: :ok
     end 
 
