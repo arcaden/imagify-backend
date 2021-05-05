@@ -3,7 +3,12 @@ class Api::ImagesController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        @images = current_user.images
+        @images = Image.where(public_view: true).order(created_at: :desc)
+        render json: @images, status: :ok
+    end
+
+    def index_personal
+        @images = Image.where(user_id: current_user.id).order(created_at: :desc)
         render json: @images, status: :ok
     end
 
@@ -34,6 +39,10 @@ class Api::ImagesController < ApplicationController
     end 
     
     private 
+
+    def set_image
+        @image = Image.find(params[:id])
+    end
 
     def create_image_params
         params.permit(:title, :img_file, :description, :public_view, tags:[])

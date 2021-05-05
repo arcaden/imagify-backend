@@ -12,6 +12,7 @@ Rails.application.routes.draw do
              }
   namespace "api" do
     resources :images
+    get "/personal", to: "images#index_personal"
     post "images/search", to: "images#search_image"
   end
 end
