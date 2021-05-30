@@ -44,8 +44,8 @@ RSpec.describe Image, :type => :model do
   it "searches by tag" do
     expected_id = image1.id
     search_params = {
-      search_by: "tag",
-      search_value: ["red"]
+      search_by: "tags",
+      search_value: "red"
     }
     result = Image.search_image(search_params)
     expect(result[0].id).to eq(expected_id)

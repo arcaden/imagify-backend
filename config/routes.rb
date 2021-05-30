@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     resources :images
     get "/personal", to: "images#index_personal"
     post "images/search", to: "images#search_image"
+    resources :comments
+    get "/comment/image", to: "comments#index_post"
   end
 end

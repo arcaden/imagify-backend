@@ -5,6 +5,7 @@ class Image < ApplicationRecord
   scope :by_title, ->(title) { where("title ILIKE ? AND public_view = true", "%#{title}%") }
   scope :by_user, ->(user) { where("user_id = ? AND public_view = true", user) }
   scope :by_tag, ->(tags) { where("? = ANY (tags) AND public_view = true", tags) }
+  
   def self.generate_tags(img_file)
     client = Aws::Rekognition::Client.new
     response = client.detect_labels({ image: { bytes: img_file }, min_confidence: 80, max_labels: 5})
